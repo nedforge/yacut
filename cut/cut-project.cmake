@@ -304,7 +304,7 @@ endfunction()
 # Usage: cut_project_create_target(target_name [EXECUTABLE|LIBRARY] [EXPORT])
 # Create target based on setup informations from previous cut_project_setup() call.
 #
-# If EXPORT is given, its CMake export can be installed later.
+# If EXPORT is given, its CMake export can be installed later via cut_project_install_export().
 function(cut_project_create_target target_name)
     cut_utility_parse_arguments(ARG "EXECUTABLE;LIBRARY;EXPORT" "" "" ${ARGN})
 
@@ -375,6 +375,8 @@ function(cut_project_create_target target_name)
     endif()
 
     ### Install ###
+    if(NOT ${target_name}_INSTALL_RUNTIME_TO_PREFIX)
+        return()
     # Set parameter for associating an export if requested
     if(ARG_EXPORT)
         cut_debug_message("Export of ${target_name} requested with name ${PROJECT_NAME}Target")
@@ -382,7 +384,6 @@ function(cut_project_create_target target_name)
     else()
         set(export_option "")
     endif()
-
 
     # Install binary
     install(TARGETS ${target_name} ${export_option}

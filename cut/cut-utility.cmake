@@ -3,7 +3,8 @@ if(_cut_utility_include_guard)
 endif()
 set(_cut_utility_include_guard true)
 
-# Usage: same as cmake_parse_arguments(). This will pop error if there's any unparsed argument.
+# Usage: same as cmake_parse_arguments().
+# This will pop error if there's any unparsed argument.
 macro(cut_utility_parse_arguments arg_prefix a b c)
     cmake_parse_arguments("${arg_prefix}" "${a}" "${b}" "${c}" ${ARGN})
     if(${arg_prefix}_UNPARSED_ARGUMENTS)
