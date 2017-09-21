@@ -1,0 +1,5 @@
+@PACKAGE_INIT@
+
+include(${CMAKE_CURRENT_LIST_DIR}/@cut_config_var_target_include@)
+
+set(@cut_config_var_varprefix@_FOUND ON CACHE BOOL "Indicates if @cut_config_var_varprefix@ is found.")
