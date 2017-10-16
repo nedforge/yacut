@@ -31,8 +31,8 @@ execute_process(
             "${HUNTER_SELF}/cmake/projects"
 )
 
-# Usage: _cut_package_parse_registry(some_prefix nlohmann-json)
-# All found packages are registered in _cut_package_registry_${id} where id is obtainable via cut_package_get_identifier().
+# Usage: _cut_package_parse_registry(some_prefix package_name)
+# All found packages are registered in _cut_package_registry_${id} where id is obtained via cut_package_get_identifier().
 # The data is stored in a shallow dictionary as argument format. Use this macro to get info from package registry via package name.
 macro(_cut_package_parse_registry prefix name)
     _cut_package_get_identifier(_cut_package_parse_registry_id "${name}")
@@ -46,6 +46,7 @@ macro(_cut_package_parse_registry prefix name)
 endmacro()
 
 # Usage: cut_package_get_identifier(nlohmann-json) -> nlohmann_json
+# Make all characters except alphanumeric into underscore, making it to be used in variable names.
 function(_cut_package_get_identifier outputvar name)
     string(REGEX REPLACE "[^a-zA-Z0-9_]" "_" id "${name}")
     set(${outputvar} ${id} PARENT_SCOPE)
@@ -122,9 +123,11 @@ function(cut_package_configure target)
         
         # Add the package to the project
         _cut_package_parse_registry(REGISTRY "${name}")
-        add_definitions(${REGISTRY__CUT_DEFINITIONS})
-        include_directories(SYSTEM ${REGISTRY__CUT_INCLUDES})
-        target_link_libraries(${target} ${REGISTRY__CUT_LIBRARIES})
+        target_compile_definitions(${target} PUBLIC ${REGISTRY__CUT_DEFINITIONS})
+		# Just globally include_directories() and not target_include_directories(),
+		# since we're not going to install all the hunter-generated packages into the installation prefix.
+		include_directories(SYSTEM ${REGISTRY__CUT_INCLUDES})
+        target_link_libraries(${target} PUBLIC ${REGISTRY__CUT_LIBRARIES})
         
         # Setup post-build copy and installation of runtime shared libraries (DLLs).
         foreach(runtime ${ARG_RUNTIME})

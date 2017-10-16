@@ -17,10 +17,10 @@ hunter_add_version(
 hunter_cmake_args(
     glbinding
     CMAKE_ARGS
-        -DOPTION_BUILD_TOOLS=OFF
-        -DOPTION_BUILD_TESTS=OFF
-        -DOPTION_BUILD_GPU_TESTS=OFF
-        -DBUILD_SHARED_LIBS=OFF
+        OPTION_BUILD_TOOLS=OFF
+        OPTION_BUILD_TESTS=OFF
+        OPTION_BUILD_GPU_TESTS=OFF
+        BUILD_SHARED_LIBS=OFF
 )
 
 hunter_pick_scheme(DEFAULT url_sha1_cmake)

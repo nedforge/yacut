@@ -377,6 +377,7 @@ function(cut_project_create_target target_name)
     ### Install ###
     if(NOT ${target_name}_INSTALL_RUNTIME_TO_PREFIX)
         return()
+    endif()
     # Set parameter for associating an export if requested
     if(ARG_EXPORT)
         cut_debug_message("Export of ${target_name} requested with name ${PROJECT_NAME}Target")

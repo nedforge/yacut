@@ -268,10 +268,9 @@ function(cut_language_cuda_enable_fastmath)
     set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS}" PARENT_SCOPE)
 endfunction()
 
-# Usage: cut_language_cuda_prevent_gpu_deprecation_warning()
+# Usage: cut_language_cuda_disable_gpu_deprecation_warning()
 # Suppress warning : The 'compute_20', 'sm_20', and 'sm_21' architectures are deprecated, and may be removed in a future release. 
-function(cut_language_cuda_prevent_gpu_deprecation_warning)
+function(cut_language_cuda_disable_gpu_deprecation_warning)
     cut_language_add_compiler_flags("-Wno-deprecated-gpu-targets" LANGUAGES CUDA)
     set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS}" PARENT_SCOPE)
 endfunction()
-
