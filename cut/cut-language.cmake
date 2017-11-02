@@ -161,6 +161,15 @@ function(cut_language_require)
         cut_debug_message("CXX version ${ARG_CXX} requested")
         set(CMAKE_CXX_STANDARD ${ARG_CXX} PARENT_SCOPE)
         set(CMAKE_CXX_STANDARD_REQUIRED on PARENT_SCOPE)
+
+		# Workaround for MSVC 2015 Update 3 and later.
+		# TODO: Once CMake implements /std:c++14 and /std:c++latest, remove this workaround.
+		if(ARG_CXX EQUAL "14")
+			if(MSVC_VERSION GREATER_EQUAL "1900")
+				cut_language_add_compiler_flags("/std:c++${ARG_CXX}" LANGUAGES CXX TEST)
+				set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}" PARENT_SCOPE)
+			endif()
+		endif()
     endif()
 
     if(ARG_CUDA)
