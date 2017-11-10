@@ -19,8 +19,8 @@ else()
 endif()
 include(HunterGate)
 HunterGate(
-    URL "https://github.com/ruslo/hunter/archive/v0.19.108.tar.gz"
-    SHA1 "56cf9f1d52296373dbcc0d0c9c2b5526a0815019"
+    URL "https://github.com/ruslo/hunter/archive/v0.19.144.tar.gz"
+    SHA1 "e3efd470f8b60468db8730eac8c04792f77fe1b1"
     FILEPATH "${_cut_package_module_path}/cut-package-hunter-config.cmake"
 )
 # Patch hunter for additional packages.
